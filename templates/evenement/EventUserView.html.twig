@@ -11,11 +11,11 @@ Our Events
 {% endblock %}
 
 {% block banner_subtitle %}
-    Fill in the details of our events
+    Getting Started With Us
 {% endblock %}
 
 {% block body %}
-    <h1>Evenement index</h1>
+{#     <h1>Evenement index</h1>
 
     <table class="table">
         <thead>
@@ -48,7 +48,77 @@ Our Events
         </tbody>
     </table>
 
+ #}
 
-    
+    <section class="product-area pt-130 pb-130 mt-130">
+    <div class="container">
+        <div class="product__wrp pb-30 mb-65 bor-bottom d-flex flex-wrap align-items-center justify-content-xl-between justify-content-center">
+            <div class="section-header d-flex align-items-center wow fadeInUp" data-wow-delay=".1s">
+                <span class="title-icon mr-10"></span>
+                <h2> Getting Started With Us </h2>
+            </div>
+            <ul class="nav nav-pills mt-4 mt-xl-0">
+                        <li class="nav-item wow fadeInUp" data-wow-delay=".1s">
+                            <a href="#latest-item" data-bs-toggle="tab" class="nav-link px-4 active">
+                                Upcoming Events 
+                            </a>
+                        </li>
+                        <li class="nav-item wow fadeInUp" data-wow-delay=".2s">
+                            <a href="#top-ratting" data-bs-toggle="tab" class="nav-link px-4 ">
+                                {% block p02 %} top ratting {% endblock %}
+                            </a>
+                        </li>
+                        
+                    </ul>
+        </div>
+
+        <div class="tab-content">
+            <div id="latest-item" class="tab-pane fade show active">
+                <div class="row g-4">
+                    {% for evenement in evenements %}
+                        <div class="col-xxl-3 col-xl-4 col-md-6">
+                            <div class="product__item bor">
+                                <a href="{{ path('app_evenement_show', {'id': evenement.id}) }}" class="wishlist">
+                                    <i class="fa-regular fa-heart"></i>
+                                </a>
+                                <a href="{{ path('app_evenement_show', {'id': evenement.id}) }}" class="product__image pt-20 d-block">
+                                    <!-- Replace the next line with your actual image path -->
+                                    <img class="font-image" src="assets/images/product/product-image1.png" alt="image">
+                                    <!-- You can add a back image if needed -->
+                                    <!-- <img class="back-image" src="assets/images/product/product-image3.png" alt="image"> -->
+                                </a>
+                                <div class="product__content">
+                                    <h4 class="mb-15">
+                                        <a class="primary-hover" href="{{ path('app_evenement_show', {'id': evenement.id}) }}">
+                                            {{ evenement.titre }}
+                                        </a>
+                                    </h4>
+                                    <p>{{ evenement.description }}</p>
+                                    <div class="star mt-20">
+                                        <!-- You can customize the star rating based on your requirements -->
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                    </div>
+                                </div>
+                                <a class="product__cart d-block bor-top" href="{{ path('app_evenement_show', {'id': evenement.id}) }}">
+                                    <i class="fa-regular fa-eye primary-color me-1"></i>
+                                    <span>Participate</span>
+                                </a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="col">
+                            <p>No events found</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 
 {% endblock %}

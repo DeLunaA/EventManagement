@@ -4,9 +4,9 @@
 {% block titlee %} Messageeeeee {% endblock %}
 
 {% block body %}
-    <h1>Evenement index</h1>
+    <h1>Evenement Management </h1>
 
-    <table class="table">
+{#     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -36,13 +36,65 @@
             </tr>
         {% endfor %}
         </tbody>
-    </table>
-
-    <a href="{{ path('app_evenement_new') }}">Create new</a>
-
-
-
+    </table> 
+        <a href="{{ path('app_evenement_new') }}">Create new</a>#}
     
+
+
+
+    <section class="reclamation-page pt-5 pb-5">
+    <div class="container">
+        <div class="reclamation-list radius-10 bor sub-bg">
+            <div class="reclamation-header py-3 px-4 d-flex justify-content-between align-items-center fw-bold text-white text-uppercase">
+                <div class="reclamation-column col">ID</div>
+                <div class="reclamation-column col">Date</div>
+                <div class="reclamation-column col">Titre</div>
+                <div class="reclamation-column col">Description</div>
+                <div class="reclamation-column col">Lieu</div>
+                <div class="reclamation-column col">Actions</div> <!-- New column for Response -->
+            </div>
+
+            {% for evenement in evenements %}
+            <div class="reclamation-item p-4 bor-top bor-bottom">
+                <div class="row gx-2 align-items-center">
+                    <div class="col">{{ evenement.id }}</div>
+                    <div class="col">{{ evenement.date ? evenement.date|date('Y-m-d') : '' }}</div>
+                    <div class="col">{{ evenement.titre }}</div>
+                    <div class="col">{{ evenement.description }}</div>
+                    <div class="col">{{ evenement.lieu }}</div>
+                    
+                    <div class="col">
+                        <a href="{{ path('app_evenement_edit', {'id': evenement.id, 'user_id': evenement.id}) }}" class="btn btn-secondary">Edit</a>
+                        <form action="{{ path('app_evenement_delete', {'id': evenement.id}) }}" method="post" class="d-inline">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ evenement.id) }}">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="reclamation-item p-4 bor-top bor-bottom">
+                <div class="d-flex justify-content-center align-items-center">
+                    <div class="col" colspan="7">No Event found</div>
+                </div>
+            </div>
+            {% endfor %}
+
+            <div class="reclamation-item p-4 bor-top bor-bottom">
+                <div class="row gx-2 align-items-center">
+                    <div class="col">
+                        <a href="{{ path('app_evenement_new') }}" class="btn btn-secondary">Create New Event</a>           
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        
+    </div>
+</section>
+
 
     
 {% endblock %}
